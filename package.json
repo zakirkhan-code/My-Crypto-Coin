@@ -1,12 +1,30 @@
 {
   "name": "my-crypto-coin-project",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Complete blockchain cryptocurrency project",
+  "main": "backend/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network sepolia",
+    "test": "hardhat test",
+    "clean": "rimraf node_modules frontend/node_modules backend/node_modules"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "hardhat": "^2.17.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "chai": "^4.3.7",
+    "ethereum-waffle": "^4.0.10",
+    "concurrently": "^8.2.0",
+    "rimraf": "^5.0.1"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "dotenv": "^16.3.1"
+  }
 }

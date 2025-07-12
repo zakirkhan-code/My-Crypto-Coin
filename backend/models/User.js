@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    // NEW: Support multiple wallet addresses
+    walletAddresses: [{
+        type: String,
+        lowercase: true
+    }],
     tokenBalance: {
         type: Number,
         default: 0
@@ -54,6 +59,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// Password hash karne ke liye pre-save middleware
 userSchema.pre('save', async function(next) {
     if (!this.isModified('password')) return next();
     
@@ -66,6 +72,7 @@ userSchema.pre('save', async function(next) {
     }
 });
 
+// Password compare method
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
